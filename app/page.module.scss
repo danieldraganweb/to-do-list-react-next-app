@@ -7,7 +7,7 @@
 }
 
 .title {
-    width: 100%;
+    width: 40%;
     max-width: 1920px;
 
     h1 {
@@ -41,6 +41,13 @@
         font-size: 18px;
     }
 
+    .error {
+        color: red;
+        /* Change this to your desired error color */
+        font-size: 18px;
+        margin-top: 10px;
+    }
+
     button {
         padding: 20px;
         border-radius: 4px;
@@ -64,5 +71,69 @@
             border: 1px solid blueviolet;
 
         }
+    }
+
+
+}
+
+.todos {
+    width: 40%;
+    margin-top: 2em;
+    padding: 1rem;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    background-color: #f0f0f0;
+    color: black;
+    min-height: 250px;
+
+    .todo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        border-bottom: 1px solid #ccc;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        p {
+            flex-grow: 1;
+            margin: 0;
+            font-size: 18px;
+            color: blueviolet;
+        }
+
+        .error p {
+            color: red;
+        }
+
+        button {
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            margin-left: 10px;
+            font-size: 14px;
+            background-color: blueviolet;
+            color: white;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #f0f0f0;
+                color: blueviolet;
+                border: 1px solid blueviolet;
+            }
+
+            &:active {
+                background-color: blueviolet;
+                color: white;
+                border: 1px solid blueviolet;
+            }
+        }
+    }
+
+    .completed {
+        text-decoration: line-through;
+        color: gray;
     }
 }

@@ -1,16 +1,18 @@
 import React from 'react'
 import styles from '../page.module.scss'
+import { ButtonProps } from '../../types'
 
 const Button = (
-    props: {
-        text: string
-        onClick?: () => void
-        ariaLabel?: string
-
-    }
+    { text, onClick, ariaLabel }: ButtonProps
 ) => {
     return (
-        <button>{props.text}</button>
+        <button
+            className={styles.button}
+            onClick={onClick}
+            aria-label={ariaLabel}
+        >
+            {text}
+        </button>
     )
 }
 
