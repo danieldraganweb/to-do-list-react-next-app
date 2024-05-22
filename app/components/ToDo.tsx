@@ -1,39 +1,52 @@
 "use client";
-import React, { ReactElement } from 'react';
+import React, { FC, useState, ChangeEvent } from 'react';
 import styles from '../page.module.scss';
 import Button from './Button';
+import Image from 'next/image'; // Import the Next.js Image component
 
-const ToDo = (): ReactElement => {
+type ToDoItem = {
+    id: number;
+    text: string;
+    completed: boolean;
+};
 
-    const [todos, setTodos] = React.useState<string[]>([]);
-    const [input, setInput] = React.useState<string>('');
-    const [error, setError] = React.useState<string>('');
+const ToDo: FC<{}> = () => {
+    const [todos, setTodos] = useState<ToDoItem[]>([]);
+    const [input, setInput] = useState<string>('');
+    const [error, setError] = useState<string>('');
 
     const handleAddTodo = () => {
         if (!input) {
             setError('Please enter a to-do item');
             return;
         }
-        setTodos([...todos, input]);
+        setTodos([...todos, { id: Date.now(), text: input, completed: false }]);
         setInput('');
         setError('');
-    }
+    };
 
-    const handleRemoveTodo = (index: number) => {
-        const newTodos = [...todos];
-        newTodos.splice(index, 1);
-        setTodos(newTodos);
-    }
+    const handleRemoveTodo = (id: number) => {
+        setTodos(todos.filter(todo => todo.id !== id));
+    };
 
-    const handleCompleteTodo = (index: number) => {
-        const newTodos = [...todos];
-        newTodos[index] = `${newTodos[index]} - Completed`;
-        setTodos(newTodos);
-    }
+    const handleCompleteTodo = (id: number) => {
+        setTodos(todos.map(todo =>
+            todo.id === id ? { ...todo, completed: !todo.completed } : todo
+        ));
+    };
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleEditTodo = (id: number) => {
+        const newText = prompt("Edit the text:", todos.find(todo => todo.id === id)?.text);
+        if (newText) {
+            setTodos(todos.map(todo =>
+                todo.id === id ? { ...todo, text: newText } : todo
+            ));
+        }
+    };
+
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         setInput(e.target.value);
-    }
+    };
 
     return (
         <>
@@ -56,24 +69,103 @@ const ToDo = (): ReactElement => {
 
             <div className={styles.todos}>
                 {error && <p className={styles.error}>{error}</p>}
-                {todos.map((todo, index) => (
-                    <div key={index} className={styles.todo}>
-                        <p>{todo}</p>
-                        <Button
-                            text="Complete"
-                            onClick={() => handleCompleteTodo(index)}
+                {todos.map((todo) => (
+                    <div key={todo.id} className={styles.todo}>
+                        <input
+                            type="checkbox"
+                            className={styles.checkbox}
+                            checked={todo.completed}
+                            onChange={() => handleCompleteTodo(todo.id)}
                         />
-                        <Button
-                            text="Remove"
-                            onClick={() => handleRemoveTodo(index)}
-                        />
+                        <p className={todo.completed ? styles.completed : ''}>{todo.text}</p>
+                        <div className={styles.icons}>
+                            <Image src="/edit.svg" className={styles.icon} alt="Edit" width={24} height={24} onClick={() => handleEditTodo(todo.id)} />
+                            <Image src="/delete.svg" className={styles.icon} alt="Delete" width={24} height={24} onClick={() => handleRemoveTodo(todo.id)} />
+                        </div>
                     </div>
                 ))}
             </div>
         </>
-    )
-
-
-}
+    );
+};
 
 export default ToDo;
+
+// "use client";
+// import React, { FC, ReactElement } from 'react';
+// import styles from '../page.module.scss';
+// import Button from './Button';
+
+
+// const ToDo: FC<{}> = () => {
+//     const [todos, setTodos] = React.useState<string[]>([]);
+//     const [input, setInput] = React.useState<string>('');
+//     const [error, setError] = React.useState<string>('');
+
+//     const handleAddTodo = () => {
+//         if (!input) {
+//             setError('Please enter a to-do item');
+//             return;
+//         }
+//         setTodos([...todos, input]);
+//         setInput('');
+//         setError('');
+//     }
+
+//     const handleRemoveTodo = (index: number) => {
+//         const newTodos = [...todos];
+//         newTodos.splice(index, 1);
+//         setTodos(newTodos);
+//     }
+
+//     const handleCompleteTodo = (index: number) => {
+//         const newTodos = [...todos];
+//         newTodos[index] = `${newTodos[index]} - Completed`;
+//         setTodos(newTodos);
+//     }
+
+//     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//         setInput(e.target.value);
+//     }
+
+//     return (
+//         <>
+//             <div className={styles.title}>
+//                 <h1>To-Do List</h1>
+//             </div>
+//             <div className={styles["input-container"]}>
+//                 <input
+//                     className={styles.input}
+//                     type="text"
+//                     placeholder="What needs to be done?"
+//                     value={input}
+//                     onChange={handleInputChange}
+//                 />
+//                 <Button
+//                     text="Add To-do"
+//                     onClick={handleAddTodo}
+//                 />
+//             </div>
+
+//             <div className={styles.todos}>
+//                 {error && <p className={styles.error}>{error}</p>}
+//                 {todos.map((todo, index) => (
+//                     <div key={index} className={styles.todo}>
+//                         <p>{todo}</p>
+//                         <Button
+//                             text="Complete"
+//                             onClick={() => handleCompleteTodo(index)}
+//                         />
+//                         <Button
+//                             text="Remove"
+//                             onClick={() => handleRemoveTodo(index)}
+//                         />
+//                     </div>
+//                 ))}
+//             </div>
+//         </>
+//     )
+// }
+
+// export default ToDo;
+
