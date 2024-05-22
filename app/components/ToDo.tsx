@@ -2,7 +2,7 @@
 import React, { FC, useState, ChangeEvent } from 'react';
 import styles from '../page.module.scss';
 import Button from './Button';
-import Image from 'next/image'; // Import the Next.js Image component
+import Image from 'next/image';
 
 type ToDoItem = {
     id: number;

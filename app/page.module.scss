@@ -170,21 +170,17 @@
         max-width: 500px;
         padding: 0;
         margin: 0.5rem;
-        /* Adjust padding for smaller screens */
     }
 
     .todo {
         flex-direction: row;
-        /* Stack items vertically on mobile */
         align-items: flex-start;
 
         p {
             margin-bottom: 1rem;
             word-wrap: break-word;
-            /* Ensure text wraps correctly */
             word-break: break-word;
             width: 100%;
-            /* Ensure the text takes up full width */
         }
 
         .icons {
