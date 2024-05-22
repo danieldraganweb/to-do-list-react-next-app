@@ -3,12 +3,9 @@ import React, { FC, useState, ChangeEvent } from 'react';
 import styles from '../page.module.scss';
 import Button from './Button';
 import Image from 'next/image';
+import { ToDoItem } from '@/types';
 
-type ToDoItem = {
-    id: number;
-    text: string;
-    completed: boolean;
-};
+
 
 const ToDo: FC<{}> = () => {
     const [todos, setTodos] = useState<ToDoItem[]>([]);
