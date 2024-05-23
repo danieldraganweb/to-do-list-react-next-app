@@ -14,23 +14,14 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The ToDo component is a functional component that renders a to-do list. The component uses the useState hook to manage the state of the to-do items and the input field. The component also uses the ChangeEvent type to handle input changes.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+     The  handleAddTodo  function is called when the user clicks the "Add To-do" button. The function checks if the input field is empty and displays an error message if it is. If the input field is not empty, the function adds a new to-do item to the list.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+     The  handleRemoveTodo  function is called when the user clicks the delete icon next to a to-do item. The function filters out the to-do item with the specified ID from the list.
 
-## Learn More
+     The  handleCompleteTodo  function is called when the user clicks the checkbox next to a to-do item. The function toggles the  completed  property of the to-do item with the specified ID.
+     The  handleEditTodo  function is called when the user clicks the edit icon next to a to-do item. The function prompts the user to enter a new text for the to-do item and updates the text of the to-do item with the specified ID.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+     The  handleInputChange  function is called when the user types in the input field. The function updates the value of the input field in the component's state.
+     The component renders the to-do list, input field, and buttons. It also displays error messages if the input field is empty. The component uses the Next.js Image component to display the edit and delete icons.
